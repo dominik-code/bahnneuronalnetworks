@@ -17,7 +17,9 @@ $queryResult = $mysqli->query("SELECT * FROM zuege WHERE dailytripid='5383794566
 $dataMap = array("arzeitist" => "time", "zugstatus" => "trainState", "datum" => "date", "zugnummerfull" =>33);
 
 while ($row = $queryResult->fetch_assoc()) {
-    var_dump($row);
+    foreach ($row as $fieldname => $value) {
+        echo "$fieldname: $value <br>";
+    }
 }
 
 exit("Done");
