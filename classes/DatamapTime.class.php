@@ -1,10 +1,7 @@
 <?php
-
+require_once 'Datamap.class.php';
 
 class DatamapTime extends Datamap {
-
-
-    private $maxvalues = 1440;
 
     public function __construct() {
         $this->type = "time";

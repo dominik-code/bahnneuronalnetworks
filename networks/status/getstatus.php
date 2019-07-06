@@ -20,7 +20,7 @@ while ($row = $queryResult->fetch_assoc()) {
     var_dump($row);
 }
 
-exit();
+exit("Done");
 
 // we will add new generated data like weekday
 $data = array(array("time" => 1), array("state" => "c"), array("time" => 3));
