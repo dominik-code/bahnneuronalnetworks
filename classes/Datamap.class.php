@@ -8,9 +8,9 @@ class Datamap {
     protected $type = "";
     protected $datamap = array();
 
-    public function saveDatamapToDatabase() {
+    public function saveDatamapToDatabase($datamap) {
         $type = $this->type;
-        foreach ($this->datamap as $dataelement) {
+        foreach ($datamap as $dataelement) {
             $fromvalue = NULL;
             $tovalue = NULL;
             foreach ($dataelement as $key => $value) {
