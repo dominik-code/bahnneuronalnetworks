@@ -18,7 +18,7 @@ class Datamap {
                 $tovalue = $value;
             }
             $mysqli = new mysqli(SETTING_DB_IP, SETTING_DB_USER, SETTING_DB_PASSWORD, SETTING_DB_NAME);
-            $mysqli->query("insert into datamap (`type`,`fromvalue`, `tovalue`) VALUES ('$this->type',$fromvalue,$tovalue)");
+            $mysqli->query("insert into datamap (`datatype`,`fromvalue`, `tovalue`) VALUES ('$this->type','$fromvalue','$tovalue')");
         }
     }
 
