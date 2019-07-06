@@ -22,25 +22,25 @@ $m = $momentum[array_rand($momentum)];
 $r = $rounds[array_rand($rounds)];
 $e = $errors[array_rand($errors)];
 echo "<h2>Learning rate $lr, momentum $m @ ($r rounds, max sq. error $e)</h2>";
-$n->clear();
-$n->setLearningRate($lr);
-$n->setMomentum($m);
+$statusnn->clear();
+$statusnn->setLearningRate($lr);
+$statusnn->setMomentum($m);
 $i = 0;
-while (!($success = $n->train($r, $e)) && ++$i<$max) {
+while (!($success = $statusnn->train($r, $e)) && ++$i<$max) {
     echo "Round $i: No success...<br />";
     flush();
 }
 
 // print a message if the network was succesfully trained
 if ($success) {
-    $epochs = $n->getEpoch();
+    $epochs = $statusnn->getEpoch();
     echo "Success in $epochs training rounds!<br />";
 
     echo "<div class='result'>";
-    for ($i = 0; $i < count($n->trainInputs); $i ++) {
-        $output = $n->calculate($n->trainInputs[$i]);
+    for ($i = 0; $i < count($statusnn->trainInputs); $i ++) {
+        $output = $statusnn->calculate($statusnn->trainInputs[$i]);
         echo "<div>Testset $i; ";
-        echo "expected output = (".implode(", ", $n->trainOutput[$i]).") ";
+        echo "expected output = (".implode(", ", $statusnn->trainOutput[$i]).") ";
         echo "output from neural network = (".implode(", ", $output).")\n</div>";
     }
     echo "</div>";
