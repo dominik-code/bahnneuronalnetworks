@@ -1,12 +1,8 @@
 <?php
-require_once 'MysqliDb.class.php';
-require_once '../config/statusconfig.php';
-
 
 class Datamap {
 
     protected $type = "";
-    protected $datamap = array();
 
     public function saveDatamapToDatabase($datamap) {
         $type = $this->type;
