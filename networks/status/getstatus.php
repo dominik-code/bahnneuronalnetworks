@@ -59,7 +59,7 @@ foreach ($export as $key => $value) {
 
 $new = new NeuralNetwork(LAYERS);
 $new->import($export);
-var_dump($new->getEpoch());
+var_dump($new->showWeights());
 var_dump($new->calculate(array(-1,-1,1)));
 //var_dump($statusnn->export());
 
