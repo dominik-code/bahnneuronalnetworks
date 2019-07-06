@@ -6,7 +6,7 @@ require_once '../../classes/MysqliDb.class.php';
 require_once '../../config/statusconfig.php';
 echo "Welcome to trainstatus prediction <br>";
 error_reporting(E_ALL);
-ini_set("display_errors",1)
+ini_set("display_errors",1);
 $times = new DatamapTime();
 
 
