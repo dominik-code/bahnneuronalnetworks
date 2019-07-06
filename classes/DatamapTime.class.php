@@ -1,0 +1,46 @@
+<?php
+
+
+class DatamapTime extends Datamap {
+
+
+    private $maxvalues = 1440;
+
+    public function __construct() {
+        $this->type = "time";
+    }
+
+    public function generateDatamap() {
+        $result = array();
+        // first we get all possible raw values with time we got 1440 (24*60) as we only have minutes and hours
+        $rawvalues = $this->time_range(0, 86400, 60);
+
+
+        // with this we got out datatype count
+        $datacount = count($rawvalues);
+
+        /*
+         * 2 = 1
+         * 3 = 0,66
+         * 4 = 0,5
+         */
+        $split = 2 / $datacount;
+        $currentmapvalue = -1.0;
+        $i = 0;
+        while ($i < $datacount) {
+            $result[] = array($rawvalues[$i] => $currentmapvalue);
+            $currentmapvalue = $currentmapvalue + $split;
+            $i++;
+        }
+        var_dump($result);
+
+    }
+
+
+    private function time_range($start, $end, $step) {
+        $return = array();
+        for ($time = $start; $time <= $end; $time += $step)
+            $return[] = date('H:i:s', $time);
+        return $return;
+    }
+}

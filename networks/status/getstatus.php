@@ -1,17 +1,49 @@
 <?php
 require_once '../../classes/NeuralNetwork.class.php';
 require_once '../../classes/StatusDataset.class.php';
+require_once '../../classes/DatamapTime.class.php';
 require_once '../../classes/MysqliDb.class.php';
 require_once '../../config/statusconfig.php';
 echo "Welcome to trainstatus prediction <br>";
 
+$times = new DatamapTime();
+
+
+// we will fetch x rows from database based on trainID and stationID
+$mysqli = new mysqli(SETTING_DB_IP, SETTING_DB_USER, SETTING_DB_PASSWORD, SETTING_DB_NAME);
+$queryResult = $mysqli->query("SELECT * FROM zuege WHERE dailytripid='5383794566138715571' and evanr ='8007013' ORDER BY id DESC LIMIT 200");
+
+$dataMap = array("arzeitist" => "time", "zugstatus" => "trainState", "datum" => "date", "zugnummerfull" =>33);
+
+while ($row = $queryResult->fetch_assoc()) {
+    var_dump($row);
+}
+
+exit();
+
+// we will add new generated data like weekday
+$data = array(array("time" => 1), array("state" => "c"), array("time" => 3));
+$statusDataset = new StatusDataset();
+$statusDataset->importDenormalizedData($data);
+
+// we will normalize the data based on the ranges per data e.g. weekday, time, trainstate
+$statusDataset->normalizeInputData();
+
+// then we feed the normalized datasets into the NN and train it.
+$statusDataset->getTrainData();
+
+
+// then we get the results of the training and see how effective it was.
+
+
+array("TrainState" => "p");
 
 $statusnn = new NeuralNetwork(LAYERS);
 $statusnn->setVerbose(false);
-$statusnn->addTestData(array (-1, -1, 1), array (-1));
-$statusnn->addTestData(array (-1,  1, 1), array ( 1));
-$statusnn->addTestData(array ( 1, -1, 1), array ( 1));
-$statusnn->addTestData(array ( 1,  1, 1), array (-1));
+$statusnn->addTestData(array(-1, -1, 1), array(-1));
+$statusnn->addTestData(array(-1, 1, 1), array(1));
+$statusnn->addTestData(array(1, -1, 1), array(1));
+$statusnn->addTestData(array(1, 1, 1), array(-1));
 
 
 $max = 3;
@@ -31,7 +63,7 @@ $statusnn->clear();
 $statusnn->setLearningRate($lr);
 $statusnn->setMomentum($m);
 $i = 0;
-while (!($success = $statusnn->train($r, $e)) && ++$i<$max) {
+while (!($success = $statusnn->train($r, $e)) && ++$i < $max) {
     echo "Round $i: No success...<br />";
     flush();
 }
@@ -42,11 +74,11 @@ if ($success) {
     echo "Success in $epochs training rounds!<br />";
 
     echo "<div class='result'>";
-    for ($i = 0; $i < count($statusnn->trainInputs); $i ++) {
+    for ($i = 0; $i < count($statusnn->trainInputs); $i++) {
         $output = $statusnn->calculate($statusnn->trainInputs[$i]);
         echo "<div>Testset $i; ";
-        echo "expected output = (".implode(", ", $statusnn->trainOutput[$i]).") ";
-        echo "output from neural network = (".implode(", ", $output).")\n</div>";
+        echo "expected output = (" . implode(", ", $statusnn->trainOutput[$i]) . ") ";
+        echo "output from neural network = (" . implode(", ", $output) . ")\n</div>";
     }
     echo "</div>";
 }
@@ -60,6 +92,6 @@ foreach ($export as $key => $value) {
 $new = new NeuralNetwork(LAYERS);
 $new->import($export);
 $new->showWeights(true);
-var_dump($new->calculate(array(-1,-1,1)));
+var_dump($new->calculate(array(-1, -1, 1)));
 //var_dump($statusnn->export());
 
