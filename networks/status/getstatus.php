@@ -8,7 +8,7 @@ echo "Welcome to trainstatus prediction <br>";
 error_reporting(E_ALL);
 ini_set("display_errors",1);
 $times = new DatamapTime();
-
+$times->generateDatamap();
 
 // we will fetch x rows from database based on trainID and stationID
 $mysqli = new mysqli(SETTING_DB_IP, SETTING_DB_USER, SETTING_DB_PASSWORD, SETTING_DB_NAME);
