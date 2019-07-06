@@ -36,7 +36,6 @@ class DatamapTime extends Datamap {
 
     private function time_range($start, $end, $step) {
         $return = array();
-        date_default_timezone_set('UTC');
         for ($time = $start; $time <= $end; $time += $step)
             $return[] = date('H:i:s', $time);
         return $return;
