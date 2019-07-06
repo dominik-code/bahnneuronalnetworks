@@ -9,7 +9,7 @@ class Datamap {
     protected $datamap = array();
 
     public function saveDatamapToDatabase() {
-
+        $type = $this->type;
         foreach ($this->datamap as $dataelement) {
             $fromvalue = NULL;
             $tovalue = NULL;
@@ -18,7 +18,7 @@ class Datamap {
                 $tovalue = $value;
             }
             $mysqli = new mysqli(SETTING_DB_IP, SETTING_DB_USER, SETTING_DB_PASSWORD, SETTING_DB_NAME);
-            $mysqli->query("insert into datamap (`datatype`,`fromvalue`, `tovalue`) VALUES ('$this->type','$fromvalue','$tovalue')");
+            $mysqli->query("INSERT INTO `datamap` (`id`, `datatype`, `fromvalue`, `tovalue`) VALUES (NULL, '$type', '$fromvalue', '$tovalue')");
         }
     }
 
