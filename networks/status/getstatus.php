@@ -50,5 +50,11 @@ if ($success) {
     }
     echo "</div>";
 }
+$export = $statusnn->export();
+foreach ($export as $key => $value) {
+    echo "Key: $key <br>";
+    var_dump($value);
+    echo "<br>";
+}
+//var_dump($statusnn->export());
 
-var_dump($statusnn->export());
