@@ -17,6 +17,11 @@ $statusnn->addTestData(array ( 1,  1, 1), array (-1));
 $max = 3;
 $i = 0;
 
+$learningRates = array(0.1, 0.25, 0.5, 0.75, 1);
+$momentum = array(0.2, 0.4, 0.6, 0.8, 1);
+$rounds = array(100, 500, 1000, 2000);
+$errors = array(0.1, 0.05, 0.01, 0.001);
+
 $lr = $learningRates[array_rand($learningRates)];
 $m = $momentum[array_rand($momentum)];
 $r = $rounds[array_rand($rounds)];
