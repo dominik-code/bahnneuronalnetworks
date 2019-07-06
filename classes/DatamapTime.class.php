@@ -30,8 +30,8 @@ class DatamapTime extends Datamap {
             $i++;
         }
 //        var_dump($result);
-        $this->saveDatamapToDatabase($result);
-
+        $this->datamap = $result;
+        $this->saveDatamapToDatabase();
     }
 
 
