@@ -1,6 +1,5 @@
 <?php
 
-require_once './MysqliDb.class.php';
 require_once '../config/statusconfig.php';
 
 class Datamap {
