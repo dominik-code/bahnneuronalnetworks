@@ -1,6 +1,6 @@
 <?php
 
-require_once '../config/statusconfig.php';
+//require_once '../config/statusconfig.php';
 
 class Datamap {
 
