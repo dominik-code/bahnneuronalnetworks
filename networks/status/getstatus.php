@@ -56,5 +56,10 @@ foreach ($export as $key => $value) {
     var_dump($value);
     echo "<br>";
 }
+
+$new = new NeuralNetwork();
+$new->import($export);
+var_dump($new->getEpoch());
+var_dump($new->calculate(array(-1,-1,1)));
 //var_dump($statusnn->export());
 
